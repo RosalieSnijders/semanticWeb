@@ -1,0 +1,368 @@
+@prefix : <http://www.food.com/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.food.com/ontology> .
+
+<http://www.food.com/ontology> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://www.food.com/ontology#HasBase
+
+:HasBase rdf:type owl:ObjectProperty .
+
+
+
+###  http://www.food.com/ontology#HasBreadType
+
+:HasBreadType rdf:type owl:FunctionalProperty ,
+                       owl:ObjectProperty .
+
+
+
+###  http://www.food.com/ontology#HasCondiment
+
+:HasCondiment rdf:type owl:ObjectProperty .
+
+
+
+###  http://www.food.com/ontology#HasTopping
+
+:HasTopping rdf:type owl:ObjectProperty .
+
+
+
+###  http://www.food.com/ontology#HasType
+
+:HasType rdf:type owl:ObjectProperty .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www.food.com/ontology#BeefBasicSandwich
+
+:BeefBasicSandwich rdf:type owl:Class ;
+                   
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :HasBase ;
+                                         owl:hasValue :Beef
+                                       ] ;
+                   
+                   rdfs:subClassOf :Sandwich .
+
+
+
+###  http://www.food.com/ontology#Cheese
+
+:Cheese rdf:type owl:Class ;
+        
+        rdfs:subClassOf :SandwichCondiment .
+
+
+
+###  http://www.food.com/ontology#ChickenDeluxeSandwich
+
+:ChickenDeluxeSandwich rdf:type owl:Class ;
+                       
+                       owl:equivalentClass [ rdf:type owl:Class ;
+                                             owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty :HasBase ;
+                                                                    owl:hasValue :Chicken
+                                                                  ]
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty :HasCondiment ;
+                                                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                                  ]
+                                                                )
+                                           ] ;
+                       
+                       rdfs:subClassOf :Sandwich .
+
+
+
+###  http://www.food.com/ontology#Fish
+
+:Fish rdf:type owl:Class ;
+      
+      rdfs:subClassOf :SandwichBase .
+
+
+
+###  http://www.food.com/ontology#Mayonnaise
+
+:Mayonnaise rdf:type owl:Class ;
+            
+            rdfs:subClassOf :SandwichCondiment .
+
+
+
+###  http://www.food.com/ontology#Meat
+
+:Meat rdf:type owl:Class ;
+      
+      rdfs:subClassOf :SandwichBase .
+
+
+
+###  http://www.food.com/ontology#Onion
+
+:Onion rdf:type owl:Class ;
+       
+       rdfs:subClassOf :SandwichCondiment .
+
+
+
+###  http://www.food.com/ontology#Sandwich
+
+:Sandwich rdf:type owl:Class ;
+          
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty :HasBreadType ;
+                            owl:someValuesFrom :SandwichBread
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :HasBase ;
+                            owl:someValuesFrom :SandwichBase
+                          ] .
+
+
+
+###  http://www.food.com/ontology#SandwichBase
+
+:SandwichBase rdf:type owl:Class .
+
+
+
+###  http://www.food.com/ontology#SandwichBread
+
+:SandwichBread rdf:type owl:Class .
+
+
+
+###  http://www.food.com/ontology#SandwichCondiment
+
+:SandwichCondiment rdf:type owl:Class .
+
+
+
+###  http://www.food.com/ontology#SandwichTopping
+
+:SandwichTopping rdf:type owl:Class .
+
+
+
+###  http://www.food.com/ontology#TunaSandwich
+
+:TunaSandwich rdf:type owl:Class ;
+              
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty :HasBase ;
+                                    owl:someValuesFrom :Fish
+                                  ] ;
+              
+              rdfs:subClassOf :Sandwich .
+
+
+
+###  http://www.food.com/ontology#VegetableTopping
+
+:VegetableTopping rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :SandwichTopping .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://www.food.com/ontology#Beef
+
+:Beef rdf:type :Meat ,
+               owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#Caper
+
+:Caper rdf:type :VegetableTopping ,
+                owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#Chicken
+
+:Chicken rdf:type :Meat ,
+                  owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#GoudaCheese
+
+:GoudaCheese rdf:type :Cheese ,
+                      owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#Ham
+
+:Ham rdf:type :Meat ,
+              owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#Lettuce
+
+:Lettuce rdf:type :VegetableTopping ,
+                  owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#MyBeefSandwich
+
+:MyBeefSandwich rdf:type owl:NamedIndividual ,
+                         owl:Thing ;
+                
+                :HasBase :Beef ;
+                
+                :HasTopping :Lettuce ;
+                
+                :HasBreadType :SesameSeedBread ;
+                
+                :HasCondiment :VeganMayonnaise .
+
+
+
+###  http://www.food.com/ontology#MyChickenSandwich
+
+:MyChickenSandwich rdf:type owl:NamedIndividual ,
+                            owl:Thing ;
+                   
+                   :HasBase :Chicken ;
+                   
+                   :HasCondiment :GoudaCheese ;
+                   
+                   :HasTopping :Lettuce ;
+                   
+                   :HasCondiment :RedOnion ,
+                                 :RegularMayonnaise .
+
+
+
+###  http://www.food.com/ontology#MyTunaMelt
+
+:MyTunaMelt rdf:type owl:NamedIndividual ,
+                     owl:Thing ;
+            
+            :HasTopping :Caper ;
+            
+            :HasCondiment :GoudaCheese ;
+            
+            :HasBreadType :PoppySeedBread ;
+            
+            :HasBase :Tuna .
+
+
+
+###  http://www.food.com/ontology#PoppySeedBread
+
+:PoppySeedBread rdf:type :SandwichBread ,
+                         owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#RedOnion
+
+:RedOnion rdf:type :Onion ,
+                   owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#RegularMayonnaise
+
+:RegularMayonnaise rdf:type :Mayonnaise ,
+                            owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#SesameSeedBread
+
+:SesameSeedBread rdf:type :SandwichBread ,
+                          owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#SmokedSalmon
+
+:SmokedSalmon rdf:type :Fish ,
+                       owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#SourDoughBread
+
+:SourDoughBread rdf:type :SandwichBread ,
+                         owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#SpeltBread
+
+:SpeltBread rdf:type :SandwichBread ,
+                     owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#Tuna
+
+:Tuna rdf:type :Fish ,
+               owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#VeganMayonnaise
+
+:VeganMayonnaise rdf:type :Mayonnaise ,
+                          owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#YellowOnion
+
+:YellowOnion rdf:type :Onion ,
+                      owl:NamedIndividual .
+
+
+
+###  http://www.food.com/ontology#Yogonnaise
+
+:Yogonnaise rdf:type :Mayonnaise ,
+                     owl:NamedIndividual .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+
